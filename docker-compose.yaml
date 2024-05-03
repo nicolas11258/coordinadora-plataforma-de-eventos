@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user_test 
+      POSTGRES_PASSWORD: pass_test
+      POSTGRES_DB: db_test
+    restart: always
+
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000-3004:3000"
+    environment:
+      PORT: 3000
+      JWT_SECRET: JWTSecret
+      DB_HOST: db
+      DB_USER: user_test
+      DB_PASSWORD: pass_test
+      DB_DATABASE: db_test
+      MAPBOX_API_KEY: api_key
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    command: bash -c "npm install && npm start"
+    depends_on:
+      - db
+    deploy:
+      replicas: 5
