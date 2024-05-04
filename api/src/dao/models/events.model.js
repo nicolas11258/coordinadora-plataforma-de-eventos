@@ -32,7 +32,8 @@ const eventModel = sequelize.define('event', {
 },{
     tableName: 'event',
     timestamps: true,
-    updatedAt: 'updated_at'
+    updatedAt: 'updated_at',
+    createdAt: 'created_at'
 });
 
 eventModel.belongsTo(userModel, { as: 'creator', foreignKey: 'fk_creator_id' });

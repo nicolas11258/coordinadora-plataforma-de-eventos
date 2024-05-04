@@ -7,13 +7,13 @@ CREATE TABLE IF NOT EXISTS "user" (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS "event" (
+CREATE TABLE IF NOT EXISTS event (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     date TIMESTAMP NOT NULL,
     location VARCHAR(255) NOT NULL,
-    fk_creator_id INT,
+    fk_creator_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (fk_creator_id) REFERENCES "user" (id)
@@ -21,12 +21,13 @@ CREATE TABLE IF NOT EXISTS "event" (
 
 CREATE TABLE IF NOT EXISTS event_attendee (
     id SERIAL PRIMARY KEY,
-    fk_event_id INT,
-    fk_user_id INT,
-    FOREIGN KEY (fk_event_id) REFERENCES "event" (id),
+    fk_event_id INTEGER,
+    fk_user_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_event_id) REFERENCES event (id),
     FOREIGN KEY (fk_user_id) REFERENCES "user" (id)
 );
-
 
 -- Column comments
 COMMENT ON COLUMN "user".id IS 'Unique identifier of the user';

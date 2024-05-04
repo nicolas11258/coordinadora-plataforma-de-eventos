@@ -1,3 +1,4 @@
+import sequelize from '../config/db.js';
 import eventModel from './models/events.model.js';
 
 const eventDAO = {
@@ -15,7 +16,18 @@ const eventDAO = {
     // Finds an event by its ID in the database.
     async findEventById(eventId) {
         try {
-            const event = await eventModel.findByPk(eventId);
+            const event = await eventModel.findByPk(
+                eventId, 
+                {
+                    attributes:[
+                        'id', 
+                        'title', 
+                        'description', 
+                        'date', 
+                        'location'
+                    ]
+                }
+            );
             return event;
         } catch (error) {
             console.error('Error finding event by ID:', error);
@@ -37,6 +49,9 @@ const eventDAO = {
     // Deletes an event from the database.
     async deleteEvent(eventId) {
         try {
+            await sequelize.query('DELETE FROM event_attendee WHERE fk_event_id = :eventId', {
+                replacements: { eventId }
+            });
             await eventModel.destroy({ where: { id: eventId } });
         } catch (error) {
             console.error('Error deleting event:', error);
@@ -47,7 +62,17 @@ const eventDAO = {
     // Finds all events in the database.
     async findAllEvents() {
         try {
-            const events = await eventModel.findAll();
+            const events = await eventModel.findAll(
+                {
+                    attributes: [
+                        'id', 
+                        'title', 
+                        'description', 
+                        'date', 
+                        'location'
+                    ]
+                }
+            );
             return events;
         } catch (error) {
             console.error('Error finding all events:', error);
@@ -77,7 +102,9 @@ const eventDAO = {
             if (!event) {
                 throw new Error('Event not found');
             }
-            const attendees = await event.getAttendees();
+            const attendees = await event.getAttendees({
+                attributes: ['id', 'name', 'email']
+            });
             return attendees;
         } catch (error) {
             console.error('Error getting event attendees:', error);

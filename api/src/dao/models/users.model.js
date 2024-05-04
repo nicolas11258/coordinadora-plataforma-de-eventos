@@ -39,7 +39,8 @@ const userModel = sequelize.define('user', {
 },{
     tableName: 'user',
     timestamps: true,
-    updatedAt: 'updated_at'
+    updatedAt: 'updated_at',
+    createdAt: 'created_at'
 });
 
 export default userModel;

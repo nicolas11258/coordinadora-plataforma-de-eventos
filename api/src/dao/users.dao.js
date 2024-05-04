@@ -1,3 +1,4 @@
+import sequelize from '../config/db.js';
 import userModel from './models/users.model.js'; 
 
 const userDAO = {
@@ -15,7 +16,9 @@ const userDAO = {
     // Finds a user by their ID in the database.
     async findUserById(userId) {
         try {
-            const user = await userModel.findByPk(userId);
+            const user = await userModel.findByPk(userId, {
+                attributes: ['id', 'name', 'email']
+            });
             return user;
         } catch (error) {
             console.error('Error finding user by ID:', error);
@@ -26,7 +29,10 @@ const userDAO = {
     // Finds a user by their email address in the database.
     async findUserByEmail(email) {
         try {
-            const user = await userModel.findOne({ where: { email } });
+            const user = await userModel.findOne({ 
+                where: { email } ,
+                attributes: ['id', 'name', 'email']
+            });
             return user;
         } catch (error) {
             console.error('Error finding user by email:', error);
@@ -48,6 +54,9 @@ const userDAO = {
     // Deletes a user from the database.
     async deleteUser(userId) {
         try {
+            await sequelize.query('DELETE FROM event_attendee WHERE fk_user_id = :eventId', {
+                replacements: { userId }
+            });
             await userModel.destroy({ where: { id: userId } });
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -58,7 +67,9 @@ const userDAO = {
     // Finds all users in the database.
     async findAllUsers() {
         try {
-            const users = await userModel.findAll();
+            const users = await userModel.findAll({
+                attributes: ['id', 'name', 'email']
+            });
             return users;
         } catch (error) {
             console.error('Error finding all users:', error);
