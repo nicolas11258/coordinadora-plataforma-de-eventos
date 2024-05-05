@@ -7,9 +7,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: user_test 
-      POSTGRES_PASSWORD: pass_test
-      POSTGRES_DB: db_test
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     restart: always
 
   nodejs:
@@ -19,13 +19,13 @@ services:
     ports:
       - "3000-3004:3000"
     environment:
-      PORT: 3000
-      JWT_SECRET: JWTSecret
-      DB_HOST: db
-      DB_USER: user_test
-      DB_PASSWORD: pass_test
-      DB_DATABASE: db_test
-      MAPBOX_API_KEY: api_key
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      MAPBOX_API_KEY: ${MAPBOX_API_KEY}
     volumes:
       - ./api:/app
     working_dir: /app
