@@ -29,7 +29,7 @@ const excelService = {
                         description: row.getCell(2).value,
                         date: row.getCell(3).value,
                         location: row.getCell(4).value,
-                        fk_creator_id: userId
+                        creatorId: userId
                     };
 
                     // Create the event in the database
