@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: Event Management Platform Documentation
+  description: Documentation showcasing all available APIs
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /excel/events:
+    post:
+      summary: Upload and process events Excel file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                excelFile:
+                  type: string
+                  format: binary
+              required:
+                - excelFile
+      responses:
+        '200':
+          description: Events file processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: No file uploaded or invalid request
+        '5xx':
+          description: Server error
+  /excel/attendees:
+    post:
+      summary: Upload and process attendees Excel file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                excelFile:
+                  type: string
+                  format: binary
+              required:
+                - excelFile
+      responses:
+        '200':
+          description: Attendees file processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: No file uploaded or invalid request
+        '5xx':
+          description: Server error
+components:
+  schemas:
+    ExcelResult:
+      type: object
+      properties:
+        message:
+          type: string

@@ -1,0 +1,51 @@
+openapi: 3.0.1
+info:
+  title: Event Management Platform Documentation
+  description: Documentation showcasing all available APIs
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /matrices:
+    post:
+      summary: Calculate attendees per day for a list of events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventIds:
+                  type: array
+                  items:
+                    type: integer
+              required:
+                - eventIds
+      responses:
+        '200':
+          description: Successful calculation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    day:
+                      type: string
+                    attendees:
+                      type: integer
+        '400':
+          description: Bad request - Missing or invalid parameters
+        '5xx':
+          description: Server error
+components:
+  schemas:
+    EventAttendees:
+      type: object
+      properties:
+        day:
+          type: string
+        attendees:
+          type: integer

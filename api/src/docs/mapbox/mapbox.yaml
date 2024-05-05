@@ -1,0 +1,45 @@
+openapi: 3.0.1
+info:
+  title: Event Management Platform Documentation
+  description: Documentation showcasing all available APIs
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /locations/{id}:
+    get:
+      summary: Get nearby locations for a specific event
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the event
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of nearby locations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '404':
+          description: Location not found
+        '5xx':
+          description: Server error
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        name:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+      required:
+        - name
+        - coordinates
