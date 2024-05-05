@@ -1,6 +1,13 @@
 import excelService from '../services/excel.services.js';
+import { errorHandler } from '../middleware/errorHandler.js';
 
-export const addListEvents = async (req, res) => {
+/**
+ * Handles the upload and processing of Events file.
+ * @param {Object} req - HTTP request object.
+ * @param {Object} res - HTTP response object.
+ * @param {Function} next - Next middleware function.
+ */
+export const addListEvents = async (req, res, next) => {
     try {
         const { file, user } = req;
         if (!file) {
@@ -8,26 +15,39 @@ export const addListEvents = async (req, res) => {
         }
 
         const filePath = file.path;
+
+        // Call the service to process the Excel file
         const result = await excelService.addListEvents(filePath, user);
 
         return res.status(200).json(result);
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        next(error);
     }
 };
 
-export const addListAttendees = async (req, res) => {
+/**
+ * Handles the upload and processing of Attendees file.
+ * @param {Object} req - HTTP request object.
+ * @param {Object} res - HTTP response object.
+ * @param {Function} next - Next middleware function.
+ */
+export const addListAttendees = async (req, res, next) => {
     try {
-        const { file, user } = req;
+        const { file } = req;
         if (!file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
         const filePath = file.path;
-        const result = await excelService.addListEvents(filePath, user);
+
+        // Call the service to process the Excel file
+        const result = await excelService.addListAttendees(filePath);
 
         return res.status(200).json(result);
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        next(error);
     }
 };
+
+// Export the error handling middleware
+export { errorHandler };
