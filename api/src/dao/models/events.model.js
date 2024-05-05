@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../../config/db.js';
 import userModel from './users.model.js';
 
+// Define the Event model
 const eventModel = sequelize.define('event', {
     id: {
         type: DataTypes.INTEGER,
@@ -29,15 +30,16 @@ const eventModel = sequelize.define('event', {
         allowNull: false,
         comment: 'Location of the event'
     }
-},{
-    tableName: 'event',
-    timestamps: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at'
+}, {
+    tableName: 'user', // Define the table name
+    timestamps: true, // Enable timestamps
+    updatedAt: 'updated_at', // Specify the name of the 'updated_at' field
+    createdAt: 'created_at' // Specify the name of the 'created_at' field
 });
 
-eventModel.belongsTo(userModel, { as: 'creator', foreignKey: 'fk_creator_id' });
+// Define associations with other models
+eventModel.belongsTo(userModel, { as: 'creator', foreignKey: 'fk_creator_id' }); // Each event belongs to a creator user
 
-eventModel.belongsToMany(userModel, { through: 'event_attendee', as: 'attendees' });
+eventModel.belongsToMany(userModel, { through: 'event_attendee', as: 'attendees', foreignKey: 'fk_event_id', otherKey: 'fk_user_id' }); // Each event can have many attendees, through the 'event_attendee' join table
 
 export default eventModel;
