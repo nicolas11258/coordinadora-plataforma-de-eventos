@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/db.js';
 
+// Define the User model
 const userModel = sequelize.define('user', {
     id: {
         type: DataTypes.INTEGER,
@@ -36,11 +37,11 @@ const userModel = sequelize.define('user', {
         defaultValue: DataTypes.NOW,
         comment: 'Timestamp of user update'
     }
-},{
-    tableName: 'user',
-    timestamps: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at'
+}, {
+    tableName: 'user', // Define the table name
+    timestamps: true, // Enable timestamps
+    updatedAt: 'updated_at', // Specify the name of the 'updated_at' field
+    createdAt: 'created_at' // Specify the name of the 'created_at' field
 });
 
 export default userModel;

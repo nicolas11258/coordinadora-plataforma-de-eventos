@@ -31,7 +31,6 @@ const userDAO = {
         try {
             const user = await userModel.findOne({ 
                 where: { email } ,
-                attributes: ['id', 'name', 'email']
             });
             return user;
         } catch (error) {
