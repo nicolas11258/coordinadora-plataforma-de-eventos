@@ -10,6 +10,8 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
     restart: always
 
   nodejs:
@@ -29,7 +31,6 @@ services:
     volumes:
       - ./api:/app
     working_dir: /app
-    command: bash -c "npm install && npm start"
     depends_on:
       - db
     deploy:

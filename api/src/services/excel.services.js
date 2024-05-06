@@ -20,6 +20,8 @@ const excelService = {
             // Get the first worksheet
             const worksheet = workbook.getWorksheet(1);
 
+            // TODO: #002: Valid format from file and extension file
+
             // Iterate through each row in the worksheet
             worksheet.eachRow({ includeEmpty: false }, async (row, rowNumber) => {
                 if (rowNumber > 1) { 
@@ -61,6 +63,8 @@ const excelService = {
 
             // Get the first worksheet
             const worksheet = workbook.getWorksheet(1);
+
+            // TODO: #002: Valid format from file and extension file
 
             // Iterate through each row in the worksheet
             worksheet.eachRow({ includeEmpty: false }, async (row, rowNumber) => {

@@ -53,7 +53,7 @@ const userDAO = {
     // Deletes a user from the database.
     async deleteUser(userId) {
         try {
-            await sequelize.query('DELETE FROM event_attendee WHERE fk_user_id = :eventId', {
+            await sequelize.query('DELETE FROM event_attendee WHERE fk_user_id = :userId', {
                 replacements: { userId }
             });
             await userModel.destroy({ where: { id: userId } });

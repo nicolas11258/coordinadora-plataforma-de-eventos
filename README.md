@@ -7,8 +7,7 @@ Este repositorio contiene la implementación de una API RESTful para una platafo
 - Docker
 - Node.js
 - PostgreSQL
-- Express (framework para construir servidores web)
-- Mapbox API Key (para la funcionalidad de ubicaciones cercanas)
+- Mapbox API Key (Necesario para la funcionalidad de ubicaciones cercanas)
 
 ## Instalación y Configuración
 
@@ -42,7 +41,7 @@ Una vez que los contenedores estén en funcionamiento, podrás acceder a la apli
 
 
 ## Documentación de la API
-La documentación de la API está disponible en Swagger. Una vez que la aplicación esté en ejecución, puedes acceder a la documentación en http://localhost:3000/api-docs.
+La documentación de la API está disponible en Swagger. Una vez que la aplicación esté en ejecución, puedes acceder a la documentación en http://localhost:3000/api/docs.
 
 ## Video de Explicación
 Enlace al video de explicación

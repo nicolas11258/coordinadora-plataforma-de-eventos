@@ -1,4 +1,3 @@
-import e from 'express';
 import sequelize from '../config/db.js';
 
 const eventDAO = {
