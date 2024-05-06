@@ -1,0 +1,13 @@
+Componentes Principales:
+
+    Cloud:
+        1. Servidores de Aplicaciones: Instancias de servidores virtuales en la nube que ejecutan la aplicación.
+        2. Balanceador de Carga: Distribuye el tráfico entre los servidores de aplicaciones para mejorar la escalabilidad y la disponibilidad.
+        3. Base de Datos en la Nube: Base de datos alojada en la nube para almacenar datos de la aplicación de forma segura y escalable.
+        4. Servicios de Gestión de Identidad y Acceso (IAM): Gestiona la autenticación y autorización de usuarios y servicios en la nube.
+    
+    On-Premise:
+        1. Servidores Físicos: Servidores físicos locales que ejecutan componentes críticos de la aplicación.
+        2. Firewall y Seguridad Perimetral: Protege la infraestructura on-premise contra amenazas externas.
+        3. Servidor de Base de Datos Local: Base de datos local para almacenar datos sensibles que no se desean alojar en la nube.
+        4. Servidor de Almacenamiento: Almacena archivos y recursos estáticos utilizados por la aplicación.

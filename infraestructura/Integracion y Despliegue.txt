@@ -1,0 +1,14 @@
+
+Implementación de CI/CD con GitHub Actions
+
+    Flujo de Integración Continua (CI)
+        1. Disparador de Eventos: Cada vez que se realiza un push a la rama dev, se desencadena el flujo de CI.
+        2. Ejecución de Pruebas: Se ejecutan pruebas automatizadas para garantizar la integridad del código.
+        3. Análisis Estático de Código: Se realizan análisis estáticos de código para identificar posibles problemas de calidad y seguridad.
+        4. Construcción de Artefactos: Se construyen los artefactos necesarios para la implementación.
+    
+    Flujo de Despliegue Continuo (CD)
+        1. Validación de Artefactos: Se realizan pruebas adicionales en los artefactos construidos durante la CI.
+        2. Despliegue en Entorno de Pruebas: Los artefactos se despliegan automáticamente en un entorno de pruebas para realizar pruebas de aceptación del usuario.
+        3. Validación Automatizada: Se ejecutan pruebas automatizadas en el entorno de pruebas para validar la funcionalidad y la estabilidad.
+        4. Despliegue en Entorno de Producción: Si las pruebas en el entorno de pruebas son exitosas, los artefactos se despliegan automáticamente en el entorno de producción.

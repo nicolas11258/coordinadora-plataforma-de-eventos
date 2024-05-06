@@ -1,0 +1,10 @@
+Características Arquitectónicas:
+
+    Resiliencia: 
+        La aplicación está diseñada para tolerar fallos en los servidores individuales, con redundancia y copias de seguridad para garantizar la disponibilidad continua.
+    
+    Idempotencia: 
+        Las operaciones de la aplicación son idempotentes, lo que significa que se pueden realizar varias veces sin cambiar el resultado final.
+    
+    Escalabilidad: 
+        La arquitectura es escalable tanto horizontalmente (añadiendo más instancias de servidores) como verticalmente (mejorando el rendimiento de los servidores existentes).
