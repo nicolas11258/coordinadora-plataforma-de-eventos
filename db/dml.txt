@@ -1,40 +1,72 @@
--- Registering a new user:
-INSERT INTO "user" (name, email, password)
-VALUES ('User Name', 'user@example.com', 'secure_password');
+-- Crear Evento
+INSERT INTO event (title, description, date, location, fk_creator_id)
+VALUES (:title, :description, :date, :location, :fk_creator_id);
 
--- Logging in an existing user:
-SELECT * FROM "user"
-WHERE email = 'user@example.com' AND password = 'secure_password';
+-- Encontrar Evento por ID
+SELECT id, title, description, date, location
+FROM event
+WHERE id = :eventId;
 
--- Creating a new event:
-INSERT INTO "event" (title, description, event_date, event_location, fk_creator_id)
-VALUES ('Event Title', 'Event Description', '2024-05-02 18:00:00', 'Event Location', 1);
+-- Actualizar Evento
+UPDATE event
+SET title = :title, 
+    description = :description, 
+    date = :date, 
+    location = :location,
+    updated_at = NOW()
+WHERE id = :eventId;
 
--- Retrieve all events:
-SELECT * FROM "event";
+-- Eliminar Evento
+DELETE FROM event
+WHERE id = :eventId;
 
--- Retrieve an event by ID:
-SELECT * FROM "event"
-WHERE id = 1;
+-- Encontrar Todos los Eventos
+SELECT id, title, description, date, location
+FROM event;
 
--- Updating an event:
-UPDATE "event"
-SET title = 'New Event Title', description = 'New Event Description'
-WHERE id = 1;
-
--- Deleting an event and its attendees:
-DELETE FROM event_attendee
-WHERE fk_event_id = 1;
-
-DELETE FROM "event"
-WHERE id = 1;
-
--- Registering an attendee for an event:
+-- Registrar Asistente a Evento
 INSERT INTO event_attendee (fk_event_id, fk_user_id)
-VALUES (1, 2);
+VALUES (:eventId, :userId);
 
--- Retrieve attendees of an event:
-SELECT "user".name
-FROM event_attendee
-JOIN "user" ON event_attendee.fk_user_id = "user".id
-WHERE fk_event_id = 1;
+-- Obtener Asistentes de un Evento
+SELECT u.id, u.name, u.email
+FROM "user" u
+INNER JOIN event_attendee ea ON u.id = ea.fk_user_id
+INNER JOIN event e ON ea.fk_event_id = e.id
+WHERE e.id = :eventId;
+
+-- Calcular Asistentes por Día
+SELECT 
+    EXTRACT(WEEK FROM e.date) AS week_number,
+    EXTRACT(DOW FROM e.date) AS day_of_week,
+    COUNT(*) AS attendees_count
+FROM 
+    event e
+JOIN 
+    event_attendee ea ON e.id = ea.fk_event_id
+WHERE 
+    e.id IN (:eventIds)
+GROUP BY 
+    EXTRACT(WEEK FROM e.date),
+    EXTRACT(DOW FROM e.date)
+ORDER BY 
+    week_number, 
+    day_of_week;
+
+-- Encontrar Usuario por ID
+SELECT id, name, email
+FROM "user"
+WHERE id = :userId;
+
+-- Encontrar Usuario por Correo Electrónico
+SELECT id, name, email
+FROM "user"
+WHERE email = :email;
+
+-- Eliminar Usuario
+DELETE FROM "user"
+WHERE id = :userId;
+
+-- Encontrar Todos los Usuarios
+SELECT id, name, email
+FROM "user";
